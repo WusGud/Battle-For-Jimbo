@@ -2259,8 +2259,9 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Woody',
         text = {
-            'Create a {C:tarot}Tarot{} or {C:planet}Planet{}',
-            'card when {C:attention}Blind{} is selected',
+            'Create a {C:tarot}Tarot{}, {C:planet}Planet{},',
+            'or {C:spectral}Spectral{} card when {C:attention}Blind{}',
+            'is selected',
             '{C:inactive}(Must have room)'
         }
     },
