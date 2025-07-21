@@ -2275,13 +2275,16 @@ SMODS.Atlas{
     pos = {x = 3, y = 2},
     calculate = function(self, card, context)
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-        local woodynum = math.random(1,2)
+        local woodynum = math.random(1,3)
         local woodyset = 'Tarot'
         if woodynum == 1 then
             woodyset = ('Tarot')
         end
         if woodynum == 2 then
             woodyset = ('Planet')
+        end
+        if woodynum == 3 then
+            woodyset = ('Spectral')
         end
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             return {
