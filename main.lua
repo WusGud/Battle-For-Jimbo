@@ -1257,7 +1257,7 @@ SMODS.Atlas{
         return { vars = { center.ability.extra.dollars, center.ability.extra.increase } }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.joker_main and not context.blueprint and not context.retrigger_joker then
             local _planet, _hand, _tally = nil, nil, 0
             for k, v in ipairs(G.handlist) do
                  if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
@@ -2260,8 +2260,8 @@ SMODS.Atlas{
         name = 'Woody',
         text = {
             'Create a {C:tarot}Tarot{}, {C:planet}Planet{},',
-            'or {C:spectral}Spectral{} card when {C:attention}Blind{}',
-            'is selected',
+            'or {C:spectral}Spectral{} card when',
+            '{C:attention}Blind{} is selected',
             '{C:inactive}(Must have room)'
         }
     },
@@ -2614,7 +2614,7 @@ SMODS.Atlas{
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 7, y = 4},
@@ -2624,7 +2624,7 @@ SMODS.Atlas{
         G.GAME.blind:wiggle()
     end,
     calculate = function(self,card,context) 
-        if context.setting_blind then
+        if context.setting_blind and not context.blueprint and not context.retrigger_joker then
             G.GAME.blind.chips = G.GAME.blind.chips * 2
             G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             G.GAME.blind:wiggle()
@@ -3759,7 +3759,7 @@ SMODS.Atlas{
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 2, y = 6},
