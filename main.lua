@@ -74,7 +74,7 @@ SMODS.Atlas{
                     card = card,
                     chip_mod = card.ability.extra.chips,
                     message = '+' .. card.ability.extra.chips,
-                    color = G.C.CHIPS
+                    colour = G.C.CHIPS
                 }
             end
         end
@@ -431,8 +431,8 @@ SMODS.Atlas{
     loc_vars = function(self, info_queue, center)
         return { 
            vars = { 
-                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 50) + (#SMODS.find_card("j_vremade_stencil", true)) * 50) or 50, 
-                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 10) + (#SMODS.find_card("j_vremade_stencil", true)) * 10) or 10 
+                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 50) + (#SMODS.find_card("j_vremade_stencil", true)) * 50) or 0, 
+                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 10) + (#SMODS.find_card("j_vremade_stencil", true)) * 10) or 0 
            }
       }
     end,
@@ -503,10 +503,10 @@ SMODS.Atlas{
             'Increases the {C:attention}sell value{}',
             'of adjacent jokers by {C:money}$2{}',
             'and gives {C:money}$3{} at the end',
-            'of each round.',
+            'of each round',
             '{C:green}#3# in 6{} chance of this card',
             'being destroyed at the',
-            'end of round as well.'
+            'end of round as well'
         }
     },
     atlas = 'Jokers',
@@ -630,8 +630,9 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Foldy', 
         text = {
-            'Any scored {C:attention}non-enhanced{}',
-            'card gives {C:mult}+3{} Mult'
+            'Played cards with',
+            '{C:attention}no enhancements{} give',
+            '{C:mult}+3{} Mult when scored'
         }
     },
     atlas = 'Jokers',
@@ -667,7 +668,7 @@ SMODS.Atlas{
             'in the {C:attention}small{} and {C:attention}big{} blinds',
             'gets added to the total',
             'hands for the {C:attention}boss blind{}.',
-            'resets after each ante.',
+            'resets after each ante',
             '{C:inactive}(Currently {C:blue}+#1#{}{C:inactive} hands)'
         }
     },
@@ -920,7 +921,7 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Robot Flower', 
         text = {
-            'This Joker randomly gives between',
+            'This Joker {C:attention}randomly{} gives between',
             '{X:chips,C:white}X0.5{} and {X:chips,C:white}X2.5{} chips'
         }
     },
@@ -960,7 +961,7 @@ SMODS.Atlas{
             '{C:mult}+12 {}Mult if played hand contains',
             'a {C:attention}Three of a Kind{}, and',
             'an additional {X:red,C:white}X4 {} Mult if',
-            '{C:attention}Ice Cube {}is held'
+            '{C:purple}Ice Cube {}is held'
         }
     },
     atlas = 'Jokers',
@@ -1289,8 +1290,8 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Stapy',
         text = {
-            '{C:green}#2# in 2 {}chance to',
-            'convert the {C:attention}highest{} ranked card in',
+            '{C:green}#2# in 2 {}chance to convert',
+            'the {C:attention}highest{} ranked card in',
             'played hand into a {C:attention}Bonus Card'
         }
     },
@@ -1308,6 +1309,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         return {vars = {card.ability.extra.odds, (G.GAME and G.GAME.probabilities.normal or 1)}}
     end,
     calculate = function(self,card,context)
@@ -1378,7 +1380,7 @@ SMODS.Atlas{
             card = card,
             Xmult_mod = card.ability.extra.Xmult,
             message = 'X' .. card.ability.extra.Xmult,
-            color = G.C.MULT 
+            colour = G.C.MULT 
             }
         end
     end
@@ -1600,6 +1602,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_soul
         return {
             vars = {card.ability.extra.rounds, card.ability.extra.rounds_done}
         }
@@ -1668,6 +1671,9 @@ SMODS.Atlas{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 2, y = 3},
+    loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = {key = "eternal", set = "Other"}
+    end,
     calculate = function(self,card,context) 
         if context.selling_self and not context.retrigger_joker and not context.blueprint then
             local jokers = {}
@@ -1771,7 +1777,8 @@ SMODS.Atlas{
             'each round, and gains an effect',
             'based on its rarity',
             '{s:0.8,C:chips}+250 Chips{}{s:0.8} for {}{s:0.8,C:common}common{}{s:0.8}, {}{s:0.8,C:mult}+50 Mult{}{s:0.8} for {}{s:0.8,C:uncommon}uncommon{}{s:0.8},{}',
-            '{s:0.8,X:red,C:white}X7 {}{s:0.8} Mult for {}{s:0.8,C:rare}rare{}{s:0.8}, and {}{s:0.8,C:attention}all{}{s:0.8} for {}{s:0.8,C:legendary}legendary{}{s:0.8}.{}'
+            '{s:0.8,X:red,C:white}X7 {}{s:0.8} Mult for {}{s:0.8,C:rare}rare{}{s:0.8}, and {}{s:0.8,C:attention}all{}{s:0.8} for {}{s:0.8,C:legendary}legendary{}{s:0.8}.{}',
+            '{C:inactive}(Can only hold one Blocky!){}'
         }
     },
     atlas = 'Jokers',
@@ -1789,6 +1796,18 @@ SMODS.Atlas{
     },
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.extra.mult, card.ability.extra.Xmult, card.ability.extra.chips}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        blockycount = 0
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i].config.center_key == "j_BFDI_joker36" and G.jokers.cards[i].debuff ~= true then
+                blockycount = blockycount + 1
+            end
+        end
+        if blockycount > 0 then
+            card:start_dissolve()
+            ease_dollars(2)
+        end
     end,
     calculate = function(self,card,context)
         prank_rarity = 0
@@ -2133,6 +2152,9 @@ SMODS.Atlas{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 8, y = 3},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
+    end,
     calculate = function(self, card, context)
         if context.joker_main and next(context.poker_hands["Straight Flush"]) then
             local ace_check = false
@@ -2459,6 +2481,10 @@ SMODS.Atlas{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 5, y = 4},
+    loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_death
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_hanged_man
+    end,
     calculate = function(self, card, context)   
         if context.joker_main and next(context.poker_hands["Straight Flush"]) and not context.retrigger_joker and not context.blueprint then
             if #G.consumeables.cards + G.GAME.consumeable_buffer + 1 < G.consumeables.config.card_limit then
@@ -2606,7 +2632,8 @@ SMODS.Atlas{
             'requirement for each',
             'blind, but {C:attention}doubles{}',
             'the end of round',
-            'cash as well'
+            'cash as well',
+            "{s:0.8,C:inactive}(Can't double interest){}"
         }
     },
     atlas = 'Jokers',
@@ -2704,8 +2731,9 @@ SMODS.Atlas{
             'This Joker gives',
             '{C:chips}+2{} Hands the {C:attention}hand{}',
             '{C:attention}before{} the final',
-            'hand with a {C:green}#2# in #3#{}',
-            'of {C:red}self-destructing{}',
+            'hand with a',
+            '{C:green}#2# in #3#{} chance of',
+            '{S:1.1,C:red,E:2}self destructing{}',
             'each trigger'
         }
     },
@@ -2807,6 +2835,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         return {vars = {center.ability.extra.mult}}
     end,
     calculate = function(self,card,context)
@@ -2815,7 +2844,7 @@ SMODS.Atlas{
             card = card,
             mult_mod = card.ability.extra.mult,
             message = '+' .. card.ability.extra.mult .. ' Mult',
-            color = G.C.MULT
+            colour = G.C.MULT
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval then
@@ -2834,8 +2863,9 @@ SMODS.Atlas{
         text = {
             'When a {C:planet}Planet{} card',
             'is used, level up that',
-            'hand an additional {C:attention}5{}',
-            'times then {C:mult}self destruct{}'
+            'hand an additional',
+            '{C:attention}5{} times then',
+            '{C:red,E:2}self destruct{}'
         }
     },
     atlas = 'Jokers',
@@ -3178,6 +3208,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
         return {vars = {card.ability.extra.hands, card.ability.extra.Xmult, (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
     end,
     calculate = function(self,card,context)
@@ -3221,6 +3252,9 @@ SMODS.Atlas{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 4, y = 0},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
+    end,
     config = { extra = {
         repetitions = 1
     }
@@ -3359,7 +3393,7 @@ SMODS.Atlas{
                 card = card,
                 Xmult_mod = card.ability.extra.Xmult,
                 message = 'X' .. card.ability.extra.Xmult .. ' Mult',
-                color = G.C.MULT
+                colour = G.C.MULT
             }
         end
     end
@@ -3446,7 +3480,7 @@ SMODS.Atlas{
         name = 'TV',
         text = {
             'Retrigger each',
-            '{C:uncommon}Uncommon{} Joker'
+            '{C:attention}compatible{} {C:uncommon}Uncommon{} Joker'
         }
     },
     atlas = 'Jokers',
@@ -3529,7 +3563,7 @@ SMODS.Atlas{
                 card = card,
                 Xmult_mod = card.ability.extra.Xmult,
                 message = 'X' .. card.ability.extra.Xmult .. ' Mult',
-                color = G.C.MULT
+                colour = G.C.MULT
             }
         end
     end
@@ -3561,6 +3595,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,center)
+        info_queue[#info_queue + 1] = { key = 'tag_coupon', set = 'Tag' }
         return {vars = {center.ability.extra.discount}}
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -3640,7 +3675,7 @@ SMODS.Atlas{
                 return {
                     card = card,
                     message = '+' .. card.ability.extra.mult_mod .. ' mult',
-                    color = G.C.MULT
+                    colour = G.C.MULT
                 }
             end
             if ruby_num == 2 then
@@ -3650,7 +3685,7 @@ SMODS.Atlas{
                 return {
                     card = card,
                     message = '+' .. card.ability.extra.chips_mod .. ' chips',
-                    color = G.C.CHIPS
+                    colour = G.C.CHIPS
                 }
             end
             if ruby_num == 3 then
@@ -3659,7 +3694,7 @@ SMODS.Atlas{
                 return {
                     card = card,
                     message = '+' .. card.ability.extra.Xmult_mod .. ' Xmult',
-                    color = G.C.MULT
+                    colour = G.C.MULT
                 }
             end
             if ruby_num == 4 then
@@ -3668,7 +3703,7 @@ SMODS.Atlas{
                 return {
                     card = card,
                     message = '+' .. card.ability.extra.increase .. ' dollars',
-                    color = G.C.MONEY
+                    colour = G.C.MONEY
                 }
             end
         end
@@ -3928,6 +3963,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
         return { 
            vars = { 
                 center.ability.extra.Xmult, 
@@ -3971,7 +4007,7 @@ SMODS.Atlas{
                 card = card,
                 Xmult_mod = card.ability.extra.Xmult,
                 message = 'X' .. card.ability.extra.Xmult .. ' Mult',
-                color = G.C.MULT
+                colour = G.C.MULT
             }
         end
     end
@@ -4126,6 +4162,7 @@ SMODS.Atlas{
     }
     },
     loc_vars = function(self,info_queue,center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
         return {vars = {center.ability.extra.mult, center.ability.extra.dollars}}
     end,
     calculate = function(self,card,context) 
@@ -4364,6 +4401,8 @@ SMODS.Atlas{
     soul_pos = {x = 9, y = 7},
     config = { extra = {  } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
         local suit = (G.GAME.current_round.vremade_ancient_card or {}).suit or 'Spades'
         return { vars = { localize('Flush','poker_hands'), localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
     end,
@@ -4425,7 +4464,7 @@ SMODS.Atlas{
             card = card,
             mult_mod = card.ability.extra.mult,
             message = '+' .. card.ability.extra.mult .. ' Mult',
-            color = G.C.MULT
+            colour = G.C.MULT
             }
         end
     end
@@ -4546,16 +4585,16 @@ local creditspage = {
         "NitroPixel3783",
         "Co-creator, and Coder",
 		"",
-        "Caldox",
-        "All of the art",
+        "Caldox, Kazt",
+        "Art",
 		"",
 		"Cyber98",
         "Code Contributions",
 		"",
-		"MilkChan, Yoki",
+		"MilkChan, ☆Melody☆",
         "MANY idea contributions (thank you again)",
 		"",
-        "Daxton, Mr. 2 Xs, my dad, my brother, MilkChan",
+        "Daxton, Mr. 2 Xs, my dad, MilkChan",
         "Playtesting",
     }
 
@@ -4708,7 +4747,7 @@ SMODS.current_mod.extra_tabs = function() --Credits tab
                 {
                     n = G.UIT.T,
                     config = {
-                    text = "MilkChan, Yoki",
+                    text = "MilkChan, ☆Melody☆",
                     shadow = false,
                     scale = scale*1,
                     colour = G.C.RED
@@ -4744,10 +4783,46 @@ SMODS.current_mod.extra_tabs = function() --Credits tab
                 {
                     n = G.UIT.T,
                     config = {
-                    text = "Daxton, Mr. 2 Xs, my dad, my brother, MilkChan",
+                    text = "Daxton, Mr. 2 Xs, My Dad, MilkChan",
                     shadow = false,
                     scale = scale*0.66,
                     colour = G.C.BLUE
+                    }
+                }
+                } 
+            },
+            {
+                n = G.UIT.R,
+                config = {
+                padding = 0,
+                align = "cm"
+                },
+                nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                    text = "My friend for watching BFDI:",
+                    shadow = false,
+                    scale = scale*0.66,
+                    colour = G.C.INACTIVE
+                    }
+                }
+                } 
+            },
+            {
+                n = G.UIT.R,
+                config = {
+                padding = 0,
+                align = "cm"
+                },
+                nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                    text = "JMFTx3",
+                    shadow = false,
+                    scale = scale*1,
+                    colour = G.C.MONEY
                     }
                 }
                 } 
