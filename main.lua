@@ -1736,6 +1736,8 @@ SMODS.Atlas{
                 if card.ability.extra.hands_remaining == 0 then
                     card:set_ability("j_BFDI_joker78")
                     return {
+                        chips = card.ability.extra.chips,
+                        mult = card.ability.extra.mult,
                         message = 'Flip!'
                     }
                 end
@@ -4495,6 +4497,7 @@ SMODS.Atlas{
                 if card.ability.extra.hands_remaining == 0 then
                     card:set_ability("j_BFDI_joker35")
                     return {
+                        Xmult = card.ability.extra.Xmult,
                         message = 'Flip!'
                     }
                 end
