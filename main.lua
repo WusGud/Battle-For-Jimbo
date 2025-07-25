@@ -2385,7 +2385,7 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Flower',
         text = {
-            'This Joker gets {C:chips}+#2#{}',
+            'This Joker gains {C:chips}+#2#{}',
             'chips at the {C:attention}end{} of',
             'each round',
             '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips){}'
@@ -3530,7 +3530,7 @@ SMODS.Atlas{
     perishable_compat = true,
     pos = {x = 8, y = 5},
     config = { extra = {
-        Xmult = 1, odds = 5
+        Xmult = 1, odds = 10
     }
     },
     loc_vars = function(self,info_queue,center)
