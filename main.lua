@@ -1733,30 +1733,11 @@ SMODS.Atlas{
         if context.joker_main and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.hands_remaining = card.ability.extra.hands_remaining - 1
             if card.ability.extra.hands_remaining == 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
                 if card.ability.extra.hands_remaining == 0 then
-                    SMODS.add_card ({
-                    set = 'Joker',
-                    key = 'j_BFDI_joker78',
-                    })
+                    card:set_ability("j_BFDI_joker78")
+                    return {
+                        message = 'Flip!'
+                    }
                 end
             end
         end
@@ -4511,30 +4492,11 @@ SMODS.Atlas{
         if context.joker_main and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.hands_remaining = card.ability.extra.hands_remaining - 1
             if card.ability.extra.hands_remaining == 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
                 if card.ability.extra.hands_remaining == 0 then
-                    SMODS.add_card ({
-                    set = 'Joker',
-                    key = 'j_BFDI_joker35',
-                    })
+                    card:set_ability("j_BFDI_joker35")
+                    return {
+                        message = 'Flip!'
+                    }
                 end
             end
         end
