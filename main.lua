@@ -411,7 +411,7 @@ SMODS.Atlas{
         text = {
             '{C:red}+10{} Mult and {C:blue}+50{} Chips for',
             'each empty {C:attention}Joker{} slot',
-            '{s:0.8}Taco excluded{}',
+            '{s:0.8}Taco included{}',
             '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult and {C:chips}+#1#{}{C:inactive} Chips)'
         }
     },
@@ -431,8 +431,8 @@ SMODS.Atlas{
     loc_vars = function(self, info_queue, center)
         return { 
            vars = { 
-                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 50) + (#SMODS.find_card("j_vremade_stencil", true)) * 50) or 0, 
-                G.jokers and math.max(0, ((G.jokers.config.card_limit - #G.jokers.cards) * 10) + (#SMODS.find_card("j_vremade_stencil", true)) * 10) or 0 
+                G.jokers and math.max(0, ((G.jokers.config.card_limit - (#G.jokers.cards - #SMODS.find_card("j_BFDI_joker8"))) * 50) + (#SMODS.find_card("j_vremade_stencil", true)) * 50) or 0, 
+                G.jokers and math.max(0, ((G.jokers.config.card_limit - (#G.jokers.cards - #SMODS.find_card("j_BFDI_joker8"))) * 10) + (#SMODS.find_card("j_vremade_stencil", true)) * 10) or 0 
            }
       }
     end,
@@ -440,9 +440,9 @@ SMODS.Atlas{
         if context.joker_main then
             return {
                 chips = math.max(0,
-                    ((G.jokers.config.card_limit - #G.jokers.cards)*50) + (#SMODS.find_card("j_vremade_stencil", true)*50)),
+                    ((G.jokers.config.card_limit - (#G.jokers.cards - #SMODS.find_card("j_BFDI_joker8")))*50) + (#SMODS.find_card("j_vremade_stencil", true)*50)),
                 mult = math.max(0,
-                    ((G.jokers.config.card_limit - #G.jokers.cards)*10) + (#SMODS.find_card("j_vremade_stencil", true)*10))
+                    ((G.jokers.config.card_limit - (#G.jokers.cards - #SMODS.find_card("j_BFDI_joker8")))*10) + (#SMODS.find_card("j_vremade_stencil", true)*10))
             }
         end
     end
@@ -1292,7 +1292,8 @@ SMODS.Atlas{
         text = {
             '{C:green}#2# in 2 {}chance to convert',
             'the {C:attention}highest{} ranked card in',
-            'played hand into a {C:attention}Bonus Card'
+            'played hand into a {C:attention}Bonus Card',
+            '{C:inactive}(targets rightmost highest value card){}'
         }
     },
     atlas = 'Jokers',
@@ -1313,7 +1314,7 @@ SMODS.Atlas{
         return {vars = {card.ability.extra.odds, (G.GAME and G.GAME.probabilities.normal or 1)}}
     end,
     calculate = function(self,card,context)
-        if context.individual and context.cardarea == G.play and not context.end_of_round and not context.retrigger_joker and not context.blueprint then
+        if context.before and context.main_eval and not context.blueprint and not context.retrigger_joker then
             local temp_Mult, temp_ID = 2, 2
             local raised_card = nil
             for i = 1, #context.scoring_hand do
@@ -1324,25 +1325,24 @@ SMODS.Atlas{
                 end
             end
             if math.random() < G.GAME.probabilities.normal / card.ability.extra.odds then
-                if raised_card == context.other_card then
-                    G.E_MANAGER:add_event(Event({
+                local thingies = {}
+                for _, scored_card in ipairs(context.scoring_hand) do
+                    if scored_card == raised_card then
+                        thingies[#thingies + 1] = scored_card
+                        scored_card:set_ability('m_bonus', nil, true)
+                        G.E_MANAGER:add_event(Event({
                         func = function()
-                            play_sound('tarot1')
+                            scored_card:juice_up()
                             return true
                         end
                     }))
-                    if not SMODS.has_enhancement(raised_card, 'm_bonus') then
-                        raised_card:set_ability('m_bonus', true)
-                        return {
-                            message = 'Stapled!',
-                            colour = G.C.CHIPS
-                        }
-                    else
-                        return {
-                            message = 'Already Stapled!',
-                            colour = G.C.CHIPS
-                        }
                     end
+                end
+                if #thingies > 0 then
+                return {
+                    message = 'Stapled',
+                    colour = G.C.CHIPS
+                }
                 end
             end
         end
