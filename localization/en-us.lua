@@ -741,7 +741,18 @@ return {
                     '{s:0.8}suit changes at end of round{}'
                 }
             }
-        }
+        },
+        Planet = {
+            c_BfJ_algebra = {
+                name = '2763',
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}2763{}",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                }
+            }
+        },
     },
     misc = {
         dictionary = {

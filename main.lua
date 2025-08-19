@@ -4,6 +4,12 @@ SMODS.Atlas {
     px = 71,
     py = 95
 }
+SMODS.Atlas {
+    key = 'Tarots',
+    path = 'Tarots.png',
+    px = 71,
+    py = 95
+}
 
 SMODS.Joker {
     key = 'balloony',
@@ -2081,7 +2087,7 @@ SMODS.Joker {
         local heart_tally = 0
         if G.playing_cards then
             for _, playing_card in ipairs(G.playing_cards) do
-                if playing_card:is_suit('Hearts') then heart_tally = heart_tally + 1 end
+                if playing_card:is_suit('Hearts') or playing_card.base.suit == "Hearts" then heart_tally = heart_tally + 1 end
             end
         end
         return { vars = { card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * heart_tally } }
@@ -2090,7 +2096,7 @@ SMODS.Joker {
         if context.joker_main then
             local heart_tally = 0
             for _, playing_card in ipairs(G.playing_cards) do
-                if playing_card:is_suit('Hearts') then heart_tally = heart_tally + 1 end
+                if playing_card:is_suit('Hearts') or playing_card.base.suit == "Hearts" then heart_tally = heart_tally + 1 end
             end
             return {
                 Xmult = 1 + card.ability.extra.Xmult * heart_tally,
@@ -2098,22 +2104,13 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        local has_nickel = false
-        for i, joker in ipairs(G.jokers.cards) do
-            if G.jokers.cards[i].config.center.loc_txt ~= nil then
-                if G.jokers.cards[i].config.center.key == 'j_BfJ_nickel' then
-                    has_nickel = true
-                    break
-                end
-            end
-        end
-        if has_nickel then
+        if next(SMODS.find_card("j_BfJ_nickel")) then
             return card.ability.extra.dollars
         end
     end,
     in_pool = function(self, args)
         for _, playing_card in ipairs(G.playing_cards or {}) do
-            if playing_card:is_suit('Hearts') then
+            if playing_card:is_suit('Hearts') or playing_card.base.suit == "Hearts" then
                 return true
             end
         end
@@ -3044,7 +3041,7 @@ SMODS.Joker {
         local spade_tally = 0
         if G.playing_cards then
             for _, playing_card in ipairs(G.playing_cards) do
-                if playing_card:is_suit('Spades') then spade_tally = spade_tally + 1 end
+                if playing_card:is_suit('Spades') or playing_card.base.suit == "Spades" then spade_tally = spade_tally + 1 end
             end
         end
         return { vars = { card.ability.extra.chips, card.ability.extra.chips * spade_tally } }
@@ -3053,7 +3050,7 @@ SMODS.Joker {
         if context.joker_main then
             local spade_tally = 0
             for _, playing_card in ipairs(G.playing_cards) do
-                if playing_card:is_suit('Spades') then spade_tally = spade_tally + 1 end
+                if playing_card:is_suit('Spades') or playing_card.base.suit == "Spades" then spade_tally = spade_tally + 1 end
             end
             return {
                 chips = card.ability.extra.chips * spade_tally,
@@ -3061,13 +3058,13 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if #SMODS.find_card('j_BfJ_coiny') then
+        if next(SMODS.find_card('j_BfJ_coiny')) then
             return card.ability.extra.dollars
         end
     end,
     in_pool = function(self, args)
         for _, playing_card in ipairs(G.playing_cards or {}) do
-            if playing_card:is_suit('Spades') then
+            if playing_card:is_suit('Spades') or playing_card.base.suit == "Spades" then
                 return true
             end
         end
@@ -3301,6 +3298,78 @@ SMODS.Joker {
         end
     end
 }
+
+
+
+
+
+
+
+SMODS.PokerHand {
+  key = "twosevensixthree",
+  chips = 27,
+  mult = 6.3,
+  l_mult = 2.7,
+  l_chips = 63,
+  visible = true,
+  above_hand = "Full House",
+  example = {
+    { 'C_Q', false },
+    { 'S_2', true },
+    { 'S_7', true },
+    { 'D_6', true },
+    { 'H_3', true }
+  },
+  evaluate = function(parts, hand)
+    local twos = {}
+    local sevens = {}
+    local sixes = {}
+    local threes = {}
+
+    for _, card in ipairs(hand) do
+        if card:get_id() == 2 then twos[#twos + 1] = card end
+        if card:get_id() == 7 then sevens[#sevens + 1] = card end
+        if card:get_id() == 6 then sixes[#sixes + 1] = card end
+        if card:get_id() == 3 then threes[#threes + 1] = card end
+    end
+
+    if next(twos) and next(sevens) and next(sixes) and next(threes) then return {SMODS.merge_lists{twos, sevens, sixes, threes}} else return {} end
+  end
+}
+
+SMODS.Consumable {
+  set = "Planet",
+  key = "algebra",
+  pos = { x = 0, y = 0 },
+  config = {
+    hand_type = "BfJ_twosevensixthree",
+    softlock = false
+  },
+  atlas = "Tarots",
+  loc_vars = function(self, info_queue, center)
+    return {
+      vars = {
+        G.GAME.hands["BfJ_twosevensixthree"].level,
+        localize("BfJ_twosevensixthree"),
+        G.GAME.hands["BfJ_twosevensixthree"].l_mult,
+        G.GAME.hands["BfJ_twosevensixthree"].l_chips,
+        colours = { (to_big(G.GAME.hands["BfJ_twosevensixthree"].level) == to_big(1) and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands["BfJ_twosevensixthree"].level)]) }
+      }
+    }
+  end
+}
+
+
+
+
+
+
+
+
+
+
+
+
 local mod_path = "" .. SMODS.current_mod.path
 function SMODS.current_mod.reset_game_globals(run_start)
     G.GAME.current_round.BfJ_announcer_card = G.GAME.current_round.BfJ_announcer_card or { suit = 'Spades' }
