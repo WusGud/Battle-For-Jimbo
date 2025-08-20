@@ -23,6 +23,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 0 },
     config = { extra = {
+        is_contestant = true,
         mult = 8
     }
     },
@@ -49,6 +50,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 0 },
     config = { extra = {
+        is_contestant = true,
         chips = 50
     }
     },
@@ -78,6 +80,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 0 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 3
     }
     },
@@ -113,6 +116,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 3, y = 0 },
     config = { extra = {
+        is_contestant = true,
         chips = 0, chip_mod = 25, mult = 0, mult_mod = 5
     }
     },
@@ -191,6 +195,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 3, y = 5 },
     config = { extra = {
+        is_contestant = true,
         chips = 0
     }
     },
@@ -269,6 +274,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 5, y = 0 },
     config = { extra = {
+        is_contestant = true,
         dollars = 2
     }
     },
@@ -328,6 +334,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 5 },
     config = { extra = {
+        is_contestant = true,
         chip_mod = 50, mult_mod = 10
     }
     },
@@ -372,6 +379,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 7, y = 0 },
     config = { extra = {
+        is_contestant = true,
         mult = 15, chips = 50, Xmult = 3, type = 'High Card'
     }
     },
@@ -411,6 +419,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 8, y = 0 },
     config = { extra = {
+        is_contestant = true,
         dollars = 3, price = 2, odds = 6
     }
     },
@@ -486,6 +495,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 9, y = 0 },
     config = { extra = {
+        is_contestant = true,
         chips = 8, mult = 8
     }
     },
@@ -520,6 +530,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 1 },
     config = { extra = {
+        is_contestant = true,
         mult = 3, key = 'c_base'
     }
     },
@@ -546,6 +557,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 1 },
     config = { extra = {
+        is_contestant = true,
         hands = 0, hands_mod = 1
     }
     },
@@ -595,6 +607,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 1 },
     config = { extra = {
+        is_contestant = true,
         d_size = 0, d_size_mod = 1
     }
     },
@@ -642,6 +655,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 3, y = 1 },
+    config = { extra = {
+        is_contestant = true,
+    } },
     calculate = function(self, card, context)
         if context.before and context.main_eval then
             local most_played = true
@@ -673,6 +689,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 8, y = 4 },
     config = { extra = {
+        is_contestant = true,
         mult = 3.14, type = 'Flush', suit = 'Clubs', dollars = 10
     }
     },
@@ -731,6 +748,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 5, y = 1 },
     config = { extra = {
+        is_contestant = true,
         mult_mod = 1, mult = 0
     }
     },
@@ -763,7 +781,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 6, y = 1 },
-    config = { extra = { max = 2.5, min = 0.5, bfj_mechanical_mind = true } },
+    config = { extra = { is_contestant = true, max = 2.5, min = 0.5, bfj_mechanical_mind = true } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.min, card.ability.extra.max } }
     end,
@@ -788,6 +806,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 7, y = 1 },
     config = { extra = {
+        is_contestant = true,
         mult = 12, Xmult = 4, type = 'Three of a Kind'
     }
     },
@@ -830,6 +849,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 8, y = 1 },
     config = { extra = {
+        is_contestant = true,
         dollars = 1
     }
     },
@@ -853,6 +873,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 9, y = 1 },
+    config = { extra = {
+        is_contestant = true
+    } },
     calculate = function(self, card, context)
         if context.selling_self and not context.retrigger_joker and not context.blueprint then
             if G.GAME.blind and not G.GAME.blind.disabled and G.GAME.blind.boss then
@@ -874,6 +897,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 4, y = 4 },
+    config = { extra = {
+        is_contestant = true
+    } },
     add_to_deck = function(self, card, from_debuff)
         G.GAME.backupprobabilities = {}
         for k, v in pairs(G.GAME.probabilities) do
@@ -899,6 +925,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 2 },
     config = { extra = {
+        is_contestant = true,
         repetitions = 1,
         bfj_mechanical_mind = true
     }
@@ -924,6 +951,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 3, y = 4 },
+    config = { extra = {
+        is_contestant = true,
+    } },
     calculate = function(self, card, context)
         if context.retrigger_joker_check and context.other_card and context.other_card.ability and context.other_card.ability.extra and context.other_card.ability.extra.bfj_mechanical_mind then
             return { repetitions = 1 }
@@ -942,6 +972,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 4 },
     config = { extra = {
+        is_contestant = true,
         hands_remaining = 3
     }
     },
@@ -991,7 +1022,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 7, y = 5 },
-    config = { extra = { dollars = 0, increase = 2 } },
+    config = { extra = { is_contestant = true, dollars = 0, increase = 2 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
     end,
@@ -1015,10 +1046,7 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        local shmell = 0
-        if card.ability.extra.dollars == 0 then
-            shmell = shmell + 1
-        else
+        if card.ability.extra.dollars > 0 then
             return card.ability.extra.dollars
         end
     end
@@ -1035,6 +1063,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 7, y = 3 },
     config = { extra = {
+        is_contestant = true,
         odds = 2
     }
     },
@@ -1089,6 +1118,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 6, y = 3 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 3
     }
     },
@@ -1118,6 +1148,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 7, y = 2 },
     config = { extra = {
+        is_contestant = true,
         mult_mod = 1, mult = 0
     }
     },
@@ -1166,6 +1197,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 8, y = 2 },
     config = { extra = {
+        is_contestant = true,
         chips = 0, chip_mod = 10
     }
     },
@@ -1199,6 +1231,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 9, y = 2 },
     config = { extra = {
+        is_contestant = true,
         type = 'High Card', odds = 2
     }
     },
@@ -1238,6 +1271,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 5, y = 3 },
     config = { extra = {
+        is_contestant = true,
         price = 1
     }
     },
@@ -1267,6 +1301,7 @@ SMODS.Joker {
     perishable_compat = false,
     pos = { x = 4, y = 3 },
     config = { extra = {
+        is_contestant = true,
         rounds = 18, rounds_done = 0
     }
     },
@@ -1328,6 +1363,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 2, y = 3 },
+    config = { extra = {
+        is_contestant = true
+    } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = "eternal", set = "Other" }
     end,
@@ -1363,6 +1401,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 3, y = 3 },
     config = { extra = {
+        is_contestant = true,
         mult = 6, chips = 18, hands = 5, hands_remaining = 5
     }
     },
@@ -1414,6 +1453,7 @@ SMODS.Joker {
     in_pool = function(self) return false end,
     pos = { x = 1, y = 8 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 3, hands = 5, hands_remaining = 5
     }
     },
@@ -1460,6 +1500,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 3 },
     config = { extra = {
+        is_contestant = true,
         mult = 50, chips = 250, Xmult = 7
     }
     },
@@ -1593,6 +1634,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 3 },
     config = { extra = {
+        is_contestant = true,
         slots = 1, rounds = 6
     }
     },
@@ -1647,7 +1689,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 6, y = 2 },
-    config = { extra = { odds = 4 } },
+    config = { extra = { is_contestant = true, odds = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
@@ -1695,7 +1737,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 5, y = 2 },
-    config = { extra = { poker_hand = 'Five of a Kind', suit = 'Clubs' } },
+    config = { extra = { is_contestant = true, poker_hand = 'Five of a Kind', suit = 'Clubs' } },
     loc_vars = function(self, info_queue, card)
         return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands'), localize(card.ability.extra.suit, 'suits_singular') } }
     end,
@@ -1740,6 +1782,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 8, y = 3 },
+    config = { extra = {
+        is_contestant = true
+    } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
     end,
@@ -1778,7 +1823,7 @@ SMODS.Joker {
                     end)
                 }))
                 return {
-                    message = '+2 Tarot',
+                    message = '+2 Tarots',
                     colour = G.C.SECONDARY_SET.Tarot,
                 }
             end
@@ -1796,6 +1841,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 9, y = 3 },
+    config = { extra = {
+        is_contestant = true
+    } },
     calculate = function(self, card, context)
         if context.end_of_round and not context.retrigger_joker and not context.blueprint then
             for _, playing_card in ipairs(G.hand.cards) do
@@ -1816,6 +1864,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 4, y = 2 },
     config = { extra = {
+        is_contestant = true,
         type = 'High Card'
     }
     },
@@ -1854,6 +1903,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 3, y = 2 },
+    config = { extra = {
+        is_contestant = true,
+    } },
     calculate = function(self, card, context)
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             local woody_set = pseudorandom_element({ "Tarot", "Planet", "Spectral" }, pseudoseed('BfJ_woody'))
@@ -1933,6 +1985,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 2 },
     config = { extra = {
+        is_contestant = true,
         chips = 0, chips_mod = 15
     }
     },
@@ -1991,6 +2044,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 5, y = 4 },
+    config = { extra = {
+        is_contestant = true
+    } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.c_hanged_man
         info_queue[#info_queue + 1] = G.P_CENTERS.c_death
@@ -2080,6 +2136,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 6, y = 4 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 0.1, dollars = 10
     }
     },
@@ -2128,6 +2185,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 7, y = 4 },
+    config = { extra = {
+        is_contestant = true
+    } },
     remove_from_deck = function(self, card, from_debuff)
         if G.GAME.blind and G.GAME.blind.BfJ_pin_doubled and G.GAME.blind.BfJ_pin_doubled > 0 then
             G.GAME.blind.BfJ_pin_doubled = G.GAME.blind.BfJ_pin_doubled - 1
@@ -2161,7 +2221,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 4, y = 1 },
-    config = { extra = { mult = 0, mult_mod = 5 } },
+    config = { extra = { is_contestant = true, mult = 0, mult_mod = 5 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.mult_mod } }
     end,
@@ -2214,6 +2274,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 9, y = 4 },
     config = { extra = {
+        is_contestant = true,
         hands = 2, odds = 2
     }
     },
@@ -2289,6 +2350,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 5 },
     config = { extra = {
+        is_contestant = true,
         mult = 2
     }
     },
@@ -2328,6 +2390,7 @@ SMODS.Joker {
     in_pool = function(self) return false end,
     pos = { x = 0, y = 5 },
     config = { extra = {
+        is_contestant = true,
         mult = 2
     }
     },
@@ -2357,6 +2420,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 5 },
     config = { extra = {
+        is_contestant = true,
         levels = 5
     }
     },
@@ -2404,6 +2468,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 6, y = 0 },
     config = { extra = {
+        is_contestant = true,
         hands = 3, Xmult = 1.25, odds = 4
     }
     },
@@ -2449,6 +2514,7 @@ SMODS.Joker {
         info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
     end,
     config = { extra = {
+        is_contestant = true,
         repetitions = 1
     }
     },
@@ -2474,6 +2540,7 @@ SMODS.Joker {
     perishable_compat = false,
     pos = { x = 4, y = 5 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 1, Xmult_mod = 0.05
     }
     },
@@ -2508,6 +2575,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 5, y = 5 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 1, Xmult_mod = 2, odds = 2
     }
     },
@@ -2575,6 +2643,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 6, y = 5 },
     config = { extra = {
+        is_contestant = true,
         repetitions = 1, odds = 5
     }
     },
@@ -2633,6 +2702,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 4 },
     config = { extra = {
+        is_contestant = true,
         repetitions = 1,
         bfj_mechanical_mind = true
     }
@@ -2702,6 +2772,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 9, y = 5 },
     config = { extra = {
+        is_contestant = true,
         discount = 25
     }
     },
@@ -2762,6 +2833,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 6 },
     config = { extra = {
+        is_contestant = true,
         mult = 0, chips = 0, Xmult = 1, money = 0, mult_min = 10, mult_max = 30, chips_min = 10, chips_max = 30, Xmult_min = 1, Xmult_max = 3, money_min = 1, money_max = 3, odds = 3
     }
     },
@@ -2837,6 +2909,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 1, y = 6 },
+    config = { extra = {
+        is_contestant = true
+    } },
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint and context.blind.boss and not context.retrigger_joker then
             if G.GAME.blind.name == 'The Pillar' or G.GAME.blind.name == 'Verdant Leaf' or G.GAME.blind.name == 'The Club' or G.GAME.blind.name == 'The Goad' or G.GAME.blind.name == 'The Window' or G.GAME.blind.name == 'The Plant' or G.GAME.blind.name == 'The Head' then
@@ -2879,6 +2954,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 6 },
     config = { extra = {
+        is_contestant = true,
         dollars = 0, increase = 2
     }
     },
@@ -2912,6 +2988,9 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 3, y = 6 },
+    config = { extra = {
+        is_contestant = true
+    } },
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false then
             local tag_var = pseudorandom_element(G.P_TAGS, pseudoseed('BfJ_fries')).key
@@ -2944,6 +3023,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 4, y = 6 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 1, Xmult_mod = 0.05, Xmult_mod_mod = 0.05, odds = 5
     }
     },
@@ -3002,6 +3082,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 0, y = 7 },
     config = { extra = {
+        is_contestant = true,
         Xmult = 2
     }
     },
@@ -3034,6 +3115,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 1, y = 7 },
     config = { extra = {
+        is_contestant = true,
         chips = 15, dollars = 10
     }
     },
@@ -3083,6 +3165,7 @@ SMODS.Joker {
     perishable_compat = true,
     pos = { x = 2, y = 7 },
     config = { extra = {
+        is_contestant = true,
         mult = 15, dollars = 3, repetitions = 1
     }
     },
@@ -3117,7 +3200,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     pos = { x = 3, y = 7 },
-    config = { extra = { mult = 2 } },
+    config = { extra = { is_contestant = true, mult = 2 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
