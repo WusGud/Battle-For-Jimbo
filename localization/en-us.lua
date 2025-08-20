@@ -18,7 +18,7 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult if all",
                     "cards in scoring",
-                    "hand are {C:attention}7s{},",
+                    "hand are {C:attention}7s{}",
                 }
             },
             j_BfJ_bottle = {
