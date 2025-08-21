@@ -1406,9 +1406,6 @@ SMODS.Joker {
     }
     },
     loc_vars = function(self, info_queue, card)
-        if not card.fake_card then
-            info_queue[#info_queue + 1] = G.P_CENTERS.j_BfJ_liy2
-        end
         return {
             vars = {
                 card.ability.extra.mult,
@@ -1458,9 +1455,7 @@ SMODS.Joker {
     }
     },
     loc_vars = function(self, info_queue, card)
-        if not card.fake_card then
-            info_queue[#info_queue + 1] = G.P_CENTERS.j_BfJ_liy
-        end
+
         return {
             vars = {
                 card.ability.extra.Xmult,

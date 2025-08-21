@@ -87,7 +87,7 @@ return {
                 name = "8 Ball",
                 text = {
                     "Each played {C:attention}8{} gives",
-                    "{C:mult}+#1#{} Mult and {C:chips}+#2#{} Chips",
+                    "{C:mult}+#1#{} Mult and {C:chips}+#1#{} Chips",
                     "when scored"
                 }
             },
@@ -744,7 +744,7 @@ return {
         },
         Planet = {
             c_BfJ_algebra = {
-                name = '2763',
+                name = 'Equation Playground',
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
                     "{C:attention}2763{}",
