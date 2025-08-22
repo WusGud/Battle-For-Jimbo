@@ -955,7 +955,7 @@ SMODS.Joker {
         is_contestant = true,
     } },
     calculate = function(self, card, context)
-        if context.retrigger_joker_check and context.other_card and context.other_card.ability and context.other_card.ability.extra and context.other_card.ability.extra.bfj_mechanical_mind then
+        if context.retrigger_joker_check and context.other_card and context.other_card.ability and context.other_card.ability.extra and type(context.other_card.ability.extra) == "table" and context.other_card.ability.extra.bfj_mechanical_mind then
             return { repetitions = 1 }
         end
     end
@@ -2706,7 +2706,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.repetitions } }
     end,
     calculate = function(self, card, context)
-        if context.retrigger_joker_check and context.other_card.config.center.rarity == 2 then
+        if context.retrigger_joker_check and context.other_card and context.other_card.config and context.other_card.config.center and context.other_card.config.center.rarity == 2 then
             return {
                 repetitions = 1
             }

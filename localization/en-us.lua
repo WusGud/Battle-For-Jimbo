@@ -37,8 +37,8 @@ return {
                     "destroy Joker to the right",
                     "and permanently add {C:chips}Chips{}",
                     "depending on its {C:attention}rarity{}",
-                    "{s:0.8,C:blue}+20{s:0.8} for {s:0.8,C:common}Common{s:0.8}, {s:0.8,C:blue}+40{s:0.8} for {s:0.8,C:uncommon}Uncommon{s:0.8},{}",
-                    "{s:0.8,C:blue}+100{s:0.8} for {s:0.8,C:rare}Rare{s:0.8}, and {s:0.8,C:blue}+1000{s:0.8} for {s:0.8,C:legendary}Legendary{}",
+                    "{s:0.8,C:chips}+20{s:0.8} for {s:0.8,C:common}Common{s:0.8}, {s:0.8,C:chips}+40{s:0.8} for {s:0.8,C:uncommon}Uncommon{s:0.8},{}",
+                    "{s:0.8,C:chips}+100{s:0.8} for {s:0.8,C:rare}Rare{s:0.8}, and {s:0.8,C:chips}+1000{s:0.8} for {s:0.8,C:legendary}Legendary{}",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}"
                 }
             },
@@ -134,7 +134,7 @@ return {
                     },
                     {
                         "If played hand is a",
-                        "{C:attention}#4#{} of {C:clubs}#3#{}",
+                        "{C:attention}#4#{} of {C:clubs}#3#{},",
                         "{S:1.1,C:red,E:2}self destructs{}",
                         "and grants {C:money}$#2#{}"
                     }
